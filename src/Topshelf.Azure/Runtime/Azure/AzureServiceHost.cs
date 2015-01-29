@@ -32,11 +32,7 @@
             _settings = settings;
             _serviceHandle = serviceHandle;
             _environment = environment;
-//
-//            CanPauseAndContinue = settings.CanPauseAndContinue;
-//            CanShutdown = settings.CanShutdown;
-//            CanHandleSessionChangeEvent = settings.CanSessionChanged;
-//            ServiceName = _settings.ServiceName;
+
         }
 
         TopshelfExitCode Host.Run()
@@ -62,19 +58,10 @@
 
         void HostControl.Stop()
         {
-            //          if (CanStop)
-            {
-                _log.Debug("Stop requested by hosted service");
+            _log.Debug("Stop requested by hosted service");
 
-                // TODO
-                // this should ask the role to restart
-                //Stop();
-            }
-//            else
-//            {
-//                _log.Debug("Stop requested by hosted service, but service cannot be stopped at this time");
-//                throw new ServiceControlException("The service cannot be stopped at this time");
-//            }
+            // this should ask the role to restart
+            RoleEnvironment.RequestRecycle();
         }
 
         public override void Run()
@@ -82,8 +69,6 @@
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
 
             AppDomain.CurrentDomain.UnhandledException += CatchUnhandledException;
-
-//            ExitCode = (int)TopshelfExitCode.Ok;
 
             _log.Info("Starting as a Windows service");
 
@@ -93,15 +78,12 @@
                     _settings, Assembly.GetEntryAssembly().GetName());
                 _log.Fatal(message);
 
-//                ExitCode = (int)TopshelfExitCode.ServiceNotInstalled;
                 throw new TopshelfException(message);
             }
 
             _log.Debug("[Topshelf] Starting up as a windows service application");
 
             base.Run();
-
-//            return (TopshelfExitCode)Enum.ToObject(typeof(TopshelfExitCode), 0); //ExitCode);
         }
 
         public override bool OnStart()
@@ -124,8 +106,6 @@
             catch (Exception ex)
             {
                 _log.Fatal("The service did not start successfully", ex);
-
-               // ExitCode = (int)TopshelfExitCode.StartServiceFailed;
                 throw;
             }
         }
@@ -144,13 +124,11 @@
             catch (Exception ex)
             {
                 _log.Fatal("The service did not shut down gracefully", ex);
-                //  ExitCode = (int)TopshelfExitCode.StopServiceFailed;
                 throw;
             }
 
             if (_unhandledException != null)
             {
-                //     ExitCode = (int)TopshelfExitCode.UnhandledServiceException;
                 _log.Info("[Topshelf] Unhandled exception detected, rethrowing to cause application to restart.");
                 throw new InvalidOperationException("An unhandled exception was detected", _unhandledException);
             }
@@ -183,10 +161,7 @@
 
             //   ExitCode = (int)TopshelfExitCode.UnhandledServiceException;
             _unhandledException = e.ExceptionObject as Exception;
-
-            // TODO request service Stop/Restart
-//            Stop();
-
+            RoleEnvironment.RequestRecycle();
 
             // it isn't likely that a TPL thread should land here, but if it does let's no block it
             if (Task.CurrentId.HasValue)
