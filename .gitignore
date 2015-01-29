@@ -10,6 +10,8 @@ packages
 *.dotCover
 *.dotSettings
 
+csx
+
 bin
 obj
 _ReSharper*

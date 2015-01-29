@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="SampleCloudService" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2014-06.2.4">
+  <Role name="SampleWorkerRoleService">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="TestPhrase" value="Clear sky." />
+    </ConfigurationSettings>
+  </Role>
+</ServiceConfiguration>

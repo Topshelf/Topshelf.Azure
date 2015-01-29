@@ -1,15 +1,26 @@
 ﻿namespace SampleWorkerRoleService
 {
+    using Microsoft.WindowsAzure;
     using Topshelf;
     using Topshelf.HostConfigurators;
+    using Topshelf.Logging;
 
 
     public class Program :
-        TophelfServiceConfigurator
+        TopshelfRoleEntryPoint
     {
-        public void Configure(HostConfigurator hostConfigurator)
+        readonly LogWriter _log = HostLogger.Get<Program>();
+
+        protected override void Configure(HostConfigurator hostConfigurator)
         {
-            hostConfigurator.Service<SampleService>();
+            // load azure settings here
+            string testPhrase = CloudConfigurationManager.GetSetting("TestPhrase");
+
+            hostConfigurator.Service(settings => new SampleService(testPhrase), x =>
+            {
+                x.BeforeStartingService(context => _log.Info("Before starting service!!"));
+                x.AfterStoppingService(context => _log.Info("After stopping service!!"));
+            });
         }
 
         static int Main()

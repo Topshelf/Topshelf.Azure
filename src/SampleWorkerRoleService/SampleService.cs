@@ -1,21 +1,29 @@
 ﻿namespace SampleWorkerRoleService
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Topshelf;
+    using Topshelf.Logging;
 
 
     class SampleService :
         ServiceControl
     {
         readonly CancellationTokenSource _cancel = new CancellationTokenSource();
+        readonly LogWriter _log = HostLogger.Get<SampleService>();
+        readonly string _testPhrase;
         Task _task;
+
+        public SampleService(string testPhrase)
+        {
+            _testPhrase = testPhrase;
+        }
 
         public bool Start(HostControl hostControl)
         {
-            _task = Boring();
+            _log.InfoFormat("Service starting up: {0}", _testPhrase);
 
+            _task = Boring();
 
             return true;
         }
@@ -33,13 +41,13 @@
         {
             if (_cancel.Token.IsCancellationRequested)
             {
-                Console.WriteLine("Goodbye, Cruel World.");
+                _log.Info("Goodbye, Cruel World.");
                 return;
             }
 
             await Task.Yield();
 
-            Console.WriteLine("Hello, World.");
+            _log.Info("Hello, World.");
 
             await Task.Delay(1000);
 
