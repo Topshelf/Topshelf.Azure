@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DA3763
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{433B255D-F044-420D-846F-0C4C81902D37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWorkerRoleService", "SampleWorkerRoleService\SampleWorkerRoleService.csproj", "{941A7AB3-81E2-4910-8D74-B28A79560830}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,8 +26,16 @@ Global
 		{0BDE63C1-8007-4750-9264-C898620B1430}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BDE63C1-8007-4750-9264-C898620B1430}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BDE63C1-8007-4750-9264-C898620B1430}.Release|Any CPU.Build.0 = Release|Any CPU
+		{941A7AB3-81E2-4910-8D74-B28A79560830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{941A7AB3-81E2-4910-8D74-B28A79560830}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{941A7AB3-81E2-4910-8D74-B28A79560830}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{941A7AB3-81E2-4910-8D74-B28A79560830}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{433B255D-F044-420D-846F-0C4C81902D37} = {DA3763EE-5FD2-4C3B-9FB9-D93B436FE269}
+		{941A7AB3-81E2-4910-8D74-B28A79560830} = {433B255D-F044-420D-846F-0C4C81902D37}
 	EndGlobalSection
 EndGlobal
