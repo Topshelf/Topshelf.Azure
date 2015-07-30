@@ -1,6 +1,6 @@
 ﻿namespace SampleWorkerRoleService
 {
-    using Microsoft.WindowsAzure;
+    using Microsoft.Azure;
     using Topshelf;
     using Topshelf.HostConfigurators;
     using Topshelf.Logging;
