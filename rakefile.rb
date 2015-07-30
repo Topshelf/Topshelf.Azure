@@ -60,7 +60,7 @@ msbuild :build do |msb|
   msb.properties :Configuration => "Release",
     :Platform => 'Any CPU'
   msb.use :net4
-  msb.targets :Clean, :Build
+  msb.targets :Rebuild
   msb.properties[:SignAssembly] = 'true'
   msb.properties[:AssemblyOriginatorKeyFile] = props[:keyfile]
   msb.solution = 'src/Topshelf.Azure.sln'
@@ -104,15 +104,14 @@ end
 nuspec :create_nuspec do |nuspec|
   nuspec.id = 'Topshelf.Azure'
   nuspec.version = NUGET_VERSION
-  nuspec.authors = 'Chris Patterson'
+  nuspec.authors = ['Chris Patterson']
   nuspec.description = 'Topshelf.Azure supports hosting Topshelf services in an Azure worker role'
   nuspec.title = 'Topshelf.Azure'
-  nuspec.projectUrl = 'http://github.com/Topshelf/Topshelf.Azure'
+  nuspec.project_url  = 'http://github.com/Topshelf/Topshelf.Azure'
   nuspec.language = "en-US"
-  nuspec.licenseUrl = "http://www.apache.org/licenses/LICENSE-2.0"
-  nuspec.requireLicenseAcceptance = "false"
+  nuspec.license_url = "http://www.apache.org/licenses/LICENSE-2.0"
   nuspec.dependency "Topshelf", "3.1.4"
-  nuspec.dependency "Unofficial.Microsoft.WindowsAzure.ServiceRuntime", "2.5.0.0"
+  nuspec.dependency "Unofficial.Microsoft.WindowsAzure.ServiceRuntime", "2.7.0.0"
   nuspec.output_file = File.join(props[:artifacts], 'Topshelf.Azure.nuspec')
   add_files props[:output], 'Topshelf.Azure.{dll,pdb,xml}', nuspec
   nuspec.file(File.join(props[:src], "Topshelf.Azure\\**\\*.cs").gsub("/","\\"), "src")
