@@ -110,7 +110,7 @@ nuspec :create_nuspec do |nuspec|
   nuspec.project_url  = 'http://github.com/Topshelf/Topshelf.Azure'
   nuspec.language = "en-US"
   nuspec.license_url = "http://www.apache.org/licenses/LICENSE-2.0"
-  nuspec.dependency "Topshelf", "3.1.4"
+  nuspec.dependency "Topshelf", "3.2.0"
   nuspec.dependency "Unofficial.Microsoft.WindowsAzure.ServiceRuntime", "2.7.0.0"
   nuspec.output_file = File.join(props[:artifacts], 'Topshelf.Azure.nuspec')
   add_files props[:output], 'Topshelf.Azure.{dll,pdb,xml}', nuspec
